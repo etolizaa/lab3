@@ -1,0 +1,85 @@
+openapi: 3.0.0
+info:
+  title: lab3 API
+  description: Описание вашего API
+  version: 1.0.0
+
+servers:
+  - url: localhost
+
+paths:
+  /items:
+    get:
+      summary: Получить все элементы
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              example:
+                message: "Успешно получены элементы"
+                data: [{ id: 1, value: "значение1" }, { id: 2, value: "значение2" }]
+
+    post:
+      summary: Добавить новый элемент
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              example:
+                message: "Элемент успешно добавлен в базу данных"
+                data: { id: 3, value: "новое значение" }
+
+  /items/{id}:
+    put:
+      summary: Обновить элемент
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Идентификатор элемента
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              example:
+                message: "Элемент успешно обновлен"
+
+    delete:
+      summary: Удалить элемент
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Идентификатор элемента
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              example:
+                message: "Элемент успешно удален"
